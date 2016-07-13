@@ -1,0 +1,191 @@
+<xsd:schema
+        xmlns="http://cs.com.ua/callingService/"
+        targetNamespace="http://cs.com.ua/callingService/"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        elementFormDefault="qualified">
+
+    <xsd:element name="Response">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="SenderInfo">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="SessionInfo">
+                                <xsd:complexType>
+                                    <xsd:simpleContent>
+                                        <xsd:extension base="xsd:string">
+                                            <xsd:attribute type="xsd:string" name="id"/>
+                                        </xsd:extension>
+                                    </xsd:simpleContent>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="StatusBlock">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element type="xsd:string" name="Status"/>
+                            <xsd:element type="xsd:string" name="ErrorCode"/>
+                            <xsd:element type="xsd:string" name="ErrorText"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="Parameters" type="ParametersResponseType"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!--Define element Parameters as abstract-->
+    <xsd:element name="ResponseParameters" type="ParametersResponseType"/>
+    <xsd:complexType name="ParametersResponseType" abstract="true"/>
+
+    <!--CallingResponse-->
+    <xsd:element name="CallingResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="response" type="xsd:string"
+                             minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <!--end CallingResponse-->
+
+
+    <!--CardListResponseParameters-->
+    <xsd:element name="CardListResponseParameters" substitutionGroup="ResponseParameters"
+                 type="CardListResponseParametersType"/>
+
+    <xsd:complexType name="CardListResponseParametersType">
+        <xsd:complexContent>
+            <xsd:extension base="ParametersResponseType">
+                <xsd:sequence>
+                    <xsd:element type="xsd:string" name="FirstTxId"/>
+                    <xsd:element type="xsd:string" name="LastTxId"/>
+                    <xsd:element type="xsd:string" name="CanContinue"/>
+                    <xsd:element type="xsd:string" name="TxCount"/>
+                    <xsd:element name="AccountDetails" maxOccurs="unbounded" minOccurs="0">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="Balances">
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element type="xsd:string" name="Ledger"/>
+                                            <xsd:element type="xsd:string" name="Available"/>
+                                            <xsd:element type="xsd:string" name="ProjectedLedger"/>
+                                            <xsd:element type="xsd:string" name="OverdraftLimit"/>
+                                            <xsd:element type="xsd:string" name="Moved"/>
+                                            <xsd:element type="xsd:string" name="ActualizedTime"/>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                                <xsd:element type="xsd:string" name="Type"/>
+                                <xsd:element type="xsd:string" name="OwnerName"/>
+                                <xsd:element type="xsd:string" name="OwnerAddress"/>
+                                <xsd:element type="xsd:string" name="Status"/>
+                                <xsd:element type="xsd:string" name="Access"/>
+                                <xsd:element type="xsd:string" name="TxId"/>
+                                <xsd:element type="xsd:string" name="Currency"/>
+                                <xsd:element type="xsd:string" name="BranchId"/>
+                                <xsd:element type="xsd:string" name="AccountName"/>
+                                <xsd:element name="Card">
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element type="xsd:string" name="EndDate"/>
+                                            <xsd:element type="xsd:string" name="CardAccount"/>
+                                            <xsd:element type="xsd:string" name="AccountId"/>
+                                            <xsd:element type="xsd:string" name="CardNo"/>
+                                            <xsd:element type="xsd:string" name="Contract"/>
+                                            <xsd:element type="xsd:string" name="EmbossedName"/>
+                                            <xsd:element type="xsd:string" name="State"/>
+                                            <xsd:element type="xsd:string" name="ContractId"/>
+                                            <xsd:element type="xsd:boolean" name="IsPrimary"/>
+                                            <xsd:element type="xsd:string" name="Type"/>
+                                            <xsd:element type="xsd:string" name="CurrencyCode"/>
+                                            <xsd:element type="xsd:string" name="Alarmed"/>
+                                            <xsd:element type="xsd:string" name="OwnerIdentifyCode"/>
+                                            <xsd:element type="xsd:string" name="BranchDesc"/>
+                                            <xsd:element type="xsd:string" name="CardName"/>
+                                            <xsd:element type="xsd:string" name="TempLimitId"/>
+                                            <xsd:element type="xsd:string" name="TempLimitFrom"/>
+                                            <xsd:element type="xsd:string" name="TempLimitTill"/>
+                                            <xsd:element type="xsd:string" name="TempLimitName"/>
+                                            <xsd:element type="xsd:string" name="MainLimitName"/>
+                                            <xsd:element type="xsd:string" name="SavingAccountNo"/>
+                                            <xsd:element type="xsd:string" name="CardId"/>
+                                            <xsd:element type="xsd:string" name="CardStateId"/>
+                                            <xsd:element name="SoftStopList">
+                                                <xsd:simpleType>
+                                                    <xsd:restriction base="xsd:string">
+                                                        <xsd:enumeration value="0"/>
+                                                        <xsd:enumeration value="1"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleType>
+                                            </xsd:element>
+                                            <xsd:element type="xsd:string" name="ResponseId"/>
+                                            <xsd:element type="xsd:string" name="SwitchStatus"/>
+                                            <xsd:element type="xsd:boolean" name="ShowCard"/>
+                                            <xsd:element type="xsd:string" name="PictureVersion"/>
+                                            <xsd:element type="xsd:string" name="CanUnblock"/>
+                                            <xsd:element type="xsd:string" name="ContractNumber"/>
+                                            <xsd:element type="xsd:string" name="EnrolledDate"/>
+                                            <xsd:element type="xsd:string" name="DisplayOrder"/>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!--end CardListResponseParameters-->
+
+
+    <!--CardPictureListResponseParameters-->
+    <xsd:element name="CardPictureListResponseParameters" substitutionGroup="ResponseParameters"
+                 type="CardPictureListResponseParametersType"/>
+
+    <xsd:complexType name="CardPictureListResponseParametersType">
+        <xsd:complexContent>
+            <xsd:extension base="ParametersResponseType">
+                <xsd:sequence>
+                    <xsd:element name="CardPictureInfoList" type="CardPictureInfoListResponse" minOccurs="1" maxOccurs="1"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="CardPictureInfoListResponse">
+        <xsd:sequence>
+            <xsd:element name="CardPictureInfo" maxOccurs="unbounded" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element type="xsd:string" name="CardId"/>
+                        <xsd:element type="xsd:base64Binary" name="Picture"/>
+                        <xsd:element type="xsd:decimal" name="Version"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <!--end CardPictureListResponseParameters-->
+
+    <!--GetDealOperationPaymentDetailsResponseParameters-->
+    <xsd:element name="GetDealOperationPaymentDetailsResponseParameters" substitutionGroup="ResponseParameters"
+                 type="GetDealOperationPaymentDetailsResponseParametersType"/>
+
+    <xsd:complexType name="GetDealOperationPaymentDetailsResponseParametersType">
+        <xsd:complexContent>
+            <xsd:extension base="ParametersResponseType">
+                <xsd:sequence>
+                    <xsd:element name="PaymentDetails" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <!--end GetDealOperationPaymentDetailsResponseParameters-->
+
+</xsd:schema>

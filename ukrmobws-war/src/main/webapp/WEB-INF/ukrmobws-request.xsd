@@ -1,0 +1,194 @@
+<xsd:schema
+        xmlns="http://cs.com.ua/callingService/"
+        targetNamespace="http://cs.com.ua/callingService/"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        elementFormDefault="qualified">
+
+    <xsd:complexType name="iFOBSWebServicePacket">
+        <xsd:sequence>
+            <xsd:element type="iFOBSWebServicePacketType" name="iFOBSWebServicePacket"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="iFOBSWebServicePacketType">
+        <xsd:sequence>
+            <xsd:element type="PacketHeaderType" name="PacketHeader"/>
+            <xsd:element type="PacketBodyType" name="PacketBody"/>
+            <xsd:element type="xsd:string" name="PacketSign"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="PacketBodyType">
+        <xsd:sequence>
+            <xsd:element type="CallingServiceType" name="CallingService"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SessionInfoType">
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+                <xsd:attribute type="xsd:string" name="id"/>
+                <xsd:attribute type="xsd:string" name="dns"/>
+                <xsd:attribute type="xsd:string" name="osuser"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="PacketHeaderType">
+        <xsd:sequence>
+            <xsd:element type="SenderInfoType" name="SenderInfo"/>
+            <xsd:element type="AuthInfoType" name="AuthInfo"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SenderInfoType">
+        <xsd:sequence>
+            <xsd:element type="ApplicationType" name="Application"/>
+            <xsd:element type="SessionInfoType" name="SessionInfo"/>
+            <xsd:element type="LocaleType" name="Locale" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="LocaleType">
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+                <xsd:attribute type="xsd:string" name="lang"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="AuthInfoType">
+        <xsd:sequence>
+            <xsd:element type="UserType" name="User"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UserType">
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+                <xsd:attribute type="xsd:string" name="login"/>
+                <xsd:attribute type="xsd:string" name="password"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="ApplicationType">
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+                <xsd:attribute type="xsd:string" name="apiVersion"/>
+                <xsd:attribute type="xsd:string" name="executable"/>
+                <xsd:attribute type="xsd:string" name="device"/>
+                <xsd:attribute type="xsd:string" name="name"/>
+                <xsd:attribute type="xsd:string" name="version"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="CallingServiceType">
+        <xsd:sequence>
+            <xsd:element ref="Parameters" maxOccurs="1"/>
+        </xsd:sequence>
+        <xsd:attribute type="xsd:string" name="servicename"/>
+    </xsd:complexType>
+
+    <!--Define element Parameters as abstract-->
+    <xsd:element name="Parameters" type="ParametersRequestType"/>
+    <xsd:complexType name="ParametersRequestType" abstract="true"/>
+
+    <!--CallingRequest-->
+    <xsd:element name="CallingRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="request" type="xsd:string"
+                             minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <!-- end CallingRequest-->
+
+    <!--CardListRequest-->
+    <xsd:element name="CardListRequest">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="iFOBSWebServicePacket">
+                    <xsd:sequence/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="CardListRequestParameters" substitutionGroup="Parameters"
+                 type="CardListRequestParametersType"/>
+
+    <xsd:complexType name="CardListRequestParametersType">
+        <xsd:complexContent>
+            <xsd:extension base="ParametersRequestType">
+                <xsd:sequence>
+                    <xsd:element name="LastTxId" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="MaxTxCount" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="NeedOnlineBalance" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="ByState" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- end CardListRequest-->
+
+    <!--CardPictureListRequest-->
+    <xsd:element name="CardPictureListRequest">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="iFOBSWebServicePacket">
+                    <xsd:sequence/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="CardPictureListRequestParameters" substitutionGroup="Parameters"
+                 type="CardPictureListRequestParametersType"/>
+
+    <xsd:complexType name="CardPictureListRequestParametersType">
+        <xsd:complexContent>
+            <xsd:extension base="ParametersRequestType">
+                <xsd:sequence>
+                    <xsd:element name="CardPictureInfoList" type="CardPictureInfoList" minOccurs="1" maxOccurs="1"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="CardPictureInfoList">
+        <xsd:sequence>
+            <xsd:element name="CardPictureInfo" maxOccurs="unbounded" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element type="xsd:string" name="CardId"/>
+                        <xsd:element type="xsd:decimal" name="Version"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- end CardPictureListRequest-->
+
+    <!--GetDealOperationPaymentDetailsRequest-->
+    <xsd:element name="GetDealOperationPaymentDetailsRequest">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="iFOBSWebServicePacket">
+                    <xsd:sequence/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="GetDealOperationPaymentDetailsRequestParameters" substitutionGroup="Parameters"
+                 type="GetDealOperationPaymentDetailsRequestParametersType"/>
+
+    <xsd:complexType name="GetDealOperationPaymentDetailsRequestParametersType">
+        <xsd:complexContent>
+            <xsd:extension base="ParametersRequestType">
+                <xsd:sequence>
+                    <xsd:element name="DealId" type="xsd:decimal"/>
+                    <xsd:element name="BranchId" type="xsd:decimal"/>
+                    <xsd:element name="DealOperationId" type="xsd:decimal" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- end GetDealOperationPaymentDetailsRequest-->
+
+</xsd:schema>

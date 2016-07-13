@@ -1,0 +1,29 @@
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="WSLOGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/ukrmobws_logs/ReqAndRes.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/ukrmobws_logs/wsReqAndRes.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                %d{HH:mm:ss.SSS} [%thread] %-8level %-40logger - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <logger name="ua.com.cs.interceptors.PayloadLoggingInterceptor" level="DEBUG" additivity="true">
+        <appender-ref ref="WSLOGFILE"/>
+    </logger>
+
+    <root level="debug">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>
