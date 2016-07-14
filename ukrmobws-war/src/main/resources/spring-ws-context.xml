@@ -30,8 +30,6 @@
             <property name="validateRequest" value="false"/>
             <property name="validateResponse" value="false"/>
         </bean>
-
-        <!--<bean class="ua.com.cs.interceptors.ChangeMassageEndpointInterceptor"/>-->
     </sws:interceptors>
 
     <bean class="org.springframework.ws.soap.server.endpoint.SoapFaultAnnotationExceptionResolver"/>
@@ -76,7 +74,7 @@
           p:defaultUri="${ws.wsdlUrl}"
           p:marshaller-ref="ifobsJaxb2Marshaller"
           p:unmarshaller-ref="ifobsJaxb2Marshaller"
-          p:interceptors-ref="changeMassageEndpointInterceptor">
+          p:interceptors-ref="changeMassageClientInterceptor">
     </bean>
 
 </beans>

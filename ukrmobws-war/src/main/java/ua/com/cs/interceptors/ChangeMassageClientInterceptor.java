@@ -21,9 +21,9 @@ import java.util.Iterator;
  * on 08.07.2016.
  */
 @Component
-public class ChangeMassageEndpointInterceptor implements ClientInterceptor {
+public class ChangeMassageClientInterceptor implements ClientInterceptor {
 
-	private static final Log logger = LogFactory.getLog(ChangeMassageEndpointInterceptor.class);
+	private static final Log logger = LogFactory.getLog(ChangeMassageClientInterceptor.class);
 
 	@Override
 	public boolean handleRequest(MessageContext messageContext) throws WebServiceClientException {
