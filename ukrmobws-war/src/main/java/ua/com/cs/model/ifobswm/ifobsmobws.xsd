@@ -1,0 +1,16 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://wm.webservices.ifobs.cs.com/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://wm.webservices.ifobs.cs.com/">
+    <xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="callService">
+        <xsd:complexType xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:sequence xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                <xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" minOccurs="0" name="sWebServiceXML" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="callServiceResponse">
+        <xsd:complexType xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:sequence xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                <xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" minOccurs="0" name="return" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
