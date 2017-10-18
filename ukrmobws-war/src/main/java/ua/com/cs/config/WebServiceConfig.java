@@ -12,6 +12,7 @@ import org.springframework.ws.client.support.interceptor.ClientInterceptor;
 import org.springframework.ws.client.support.interceptor.PayloadValidatingInterceptor;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
+import org.springframework.ws.server.EndpointInterceptor;
 import org.springframework.ws.server.endpoint.adapter.method.MarshallingPayloadMethodProcessor;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
 import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
@@ -19,7 +20,9 @@ import org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection;
 import ua.com.cs.interceptors.ChangeMassageClientInterceptor;
 import ua.com.cs.interceptors.PayloadLoggingInterceptor;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -105,5 +108,13 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     @Bean
     public CommonsXsdSchemaCollection commonsXsdSchemaCollection() {
         return new CommonsXsdSchemaCollection(new ClassPathResource("ukrmobws-response.xsd"), new ClassPathResource("ukrmobws-request.xsd"));
+    }
+
+    @Override
+    public void addInterceptors(List<EndpointInterceptor> interceptors) {
+        List<EndpointInterceptor> endpointInterceptors = new ArrayList<EndpointInterceptor>();
+        endpointInterceptors.add(new PayloadLoggingInterceptor());
+
+        super.addInterceptors(endpointInterceptors);
     }
 }
